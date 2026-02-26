@@ -5,7 +5,7 @@ import registerImg548 from '@/assets/images/register-548.webp';
 import registerImg905 from '@/assets/images/register-905.webp';
 import registerImgDefault from '@/assets/images/register-548.png';
 
-const RegisterPage = () => {
+const LoginPage = () => {
   return (
     <AuthPage
       authForm={<RegisterForm />}
@@ -13,10 +13,10 @@ const RegisterPage = () => {
       img548={registerImg548}
       img905={registerImg905}
       imgDefault={registerImgDefault}
-      linkTo="/login"
-      linkText="Вхід"
+      linkTo="/register"
+      linkText="Реєстрація"
     />
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
