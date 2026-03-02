@@ -1,26 +1,18 @@
 import { useId } from 'react';
 import { Formik, Form } from 'formik';
-// import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { BiSolidUserRectangle } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
-import { registerUser } from '@/services/auth.js';
+import { loginUser } from '@/services/auth.js';
 import Button from '@/components/ui/Button';
 import FormInput from '@/components/ui/FormInput';
 
-const RegisterForm = () => {
-  const usernameFieldId = useId();
+const LoginForm = () => {
   const emailFieldId = useId();
   const passwordFieldId = useId();
-  // const navigate = useNavigate();
-  const initialValues = { username: '', email: '', password: '' };
+  const initialValues = { email: '', password: '' };
 
   const registerSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(2, "Ім'я занадто коротке!")
-      .max(40, "Ім'я занадто довге!")
-      .required("Обов'язкове поле!"),
     email: Yup.string()
       .email('Повинна бути коректна електронна пошта!')
       .required("Обов'язкове поле!"),
@@ -38,12 +30,11 @@ const RegisterForm = () => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      const data = await registerUser(values);
+      const data = await loginUser(values);
       console.log(data);
       actions.resetForm();
-      // navigate('/login');
     } catch (error) {
-      console.error('Registration error:', error); //toast
+      console.error('Login error:', error); //toast
     }
   };
 
@@ -55,14 +46,6 @@ const RegisterForm = () => {
         validationSchema={registerSchema}
       >
         <Form className="mt-12 flex flex-col gap-8 bg-white/30 backdrop-blur-md">
-          <FormInput
-            type="text"
-            name="username"
-            id={usernameFieldId}
-            placeholder="Ваше ім'я"
-            aria-label="Ім'я користувача"
-            icon={BiSolidUserRectangle}
-          />
           <FormInput
             type="email"
             name="email"
@@ -80,7 +63,7 @@ const RegisterForm = () => {
             icon={IoMdLock}
           />
           <Button type="submit" variant="primary">
-            Реєстрація
+            Вхід
           </Button>
         </Form>
       </Formik>
@@ -88,4 +71,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

@@ -36,6 +36,7 @@ const FormInput = ({ icon: Icon = null, type, id, ...props }) => {
         <input
           {...field}
           {...props}
+          id={id}
           type={inputType}
           className="flex-1 border-none outline-none focus:outline-none"
         />

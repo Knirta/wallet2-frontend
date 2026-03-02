@@ -3,19 +3,19 @@ import AuthLink from '@/components/ui/AuthLink';
 
 const AuthPage = ({
   authForm: AuthForm,
-  img274,
-  img548,
-  img905,
+  imgSmall,
+  imgMedium,
+  imgLarge,
   imgDefault,
   linkTo,
   linkText,
 }) => {
   return (
     <>
-      <div className="image-wrapper bg-bgDark hidden items-center justify-center gap-18 pt-15 text-3xl md:flex xl:flex-col xl:justify-normal xl:gap-7.5 xl:pt-37.5">
+      <div className="image-wrapper bg-bgDark hidden items-center justify-center gap-18 pt-15 text-3xl md:flex xl:flex-col xl:justify-normal xl:gap-7.5 xl:pt-37.5 xl:pb-19">
         <img
-          className="relative z-30 w-68.5 xl:w-113"
-          srcSet={`${img274} 274w, ${img548} 548w, ${img905} 905w`}
+          className="relative z-30 w-68.5 object-cover xl:w-113"
+          srcSet={`${imgSmall} 274w, ${imgMedium} 548w, ${imgLarge} 905w`}
           sizes="(min-width: 1280px) 548px, 274px "
           src={imgDefault}
           alt="Finance App"
