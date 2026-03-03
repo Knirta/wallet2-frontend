@@ -1,6 +1,6 @@
 import { useId } from 'react';
 import { Formik, Form } from 'formik';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { BiSolidUserRectangle } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
@@ -13,7 +13,7 @@ const RegisterForm = () => {
   const usernameFieldId = useId();
   const emailFieldId = useId();
   const passwordFieldId = useId();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const initialValues = { username: '', email: '', password: '' };
 
   const registerSchema = Yup.object().shape({
@@ -41,7 +41,7 @@ const RegisterForm = () => {
       const data = await registerUser(values);
       console.log(data);
       actions.resetForm();
-      // navigate('/login');
+      navigate('/register-success', { state: { email: values.email } });
     } catch (error) {
       console.error('Registration error:', error); //toast
     }

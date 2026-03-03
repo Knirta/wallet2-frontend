@@ -8,6 +8,8 @@ import AuthLayout from '@/components/layout/AuthLayout.jsx';
 import MainLayout from '@/components/layout/MainLayout.jsx';
 import RegisterPage from '@/pages/RegisterPage.jsx';
 import LoginPage from '@/pages/LoginPage.jsx';
+import RegisterSuccessPage from '@/pages/RegisterSuccesPage.jsx';
+import VerifyEmailPage from '@/pages/VerifyEmail.Page.jsx';
 import DashboardPage from '@/pages/DashboardPage.jsx';
 import StatsPage from '@/pages/Stats.jsx';
 
@@ -27,6 +29,11 @@ const router = createBrowserRouter([
           {
             path: 'login',
             element: <LoginPage />,
+          },
+          { path: 'register-success', element: <RegisterSuccessPage /> },
+          {
+            path: 'verify-email/:verificationCode',
+            element: <VerifyEmailPage />,
           },
         ],
       },
