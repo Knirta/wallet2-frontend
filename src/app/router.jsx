@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import RootLayout from '@/components/layout/RootLayout.jsx';
 import AuthLayout from '@/components/layout/AuthLayout.jsx';
 import MainLayout from '@/components/layout/MainLayout.jsx';
@@ -13,7 +9,7 @@ import VerifyEmailPage from '@/pages/VerifyEmail.Page.jsx';
 import DashboardPage from '@/pages/DashboardPage.jsx';
 import StatsPage from '@/pages/Stats.jsx';
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
@@ -32,7 +28,7 @@ const router = createBrowserRouter([
           },
           { path: 'register-success', element: <RegisterSuccessPage /> },
           {
-            path: 'verify-email/:verificationCode',
+            path: 'verify-email',
             element: <VerifyEmailPage />,
           },
         ],
@@ -50,9 +46,3 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-const App = () => {
-  return <RouterProvider router={router} />;
-};
-
-export default App;

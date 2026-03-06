@@ -1,14 +1,12 @@
 import Logo from '@/components/ui/Logo';
-import AuthLink from '@/components/ui/AuthLink';
 
 const AuthPage = ({
   authForm: AuthForm,
+  authCtrl: AuthCtrl,
   imgSmall,
   imgMedium,
   imgLarge,
   imgDefault,
-  linkTo,
-  linkText,
 }) => {
   return (
     <>
@@ -29,7 +27,7 @@ const AuthPage = ({
             <h1 className="text-2xl font-bold md:text-3xl">Wallet</h1>
           </div>
           {AuthForm}
-          <AuthLink to={linkTo}>{linkText}</AuthLink>
+          {AuthCtrl}
         </div>
       </div>
       <div className="md:bg-ellipse-pink xl:bg-ellipse-pink-desktop pointer-events-none absolute inset-0 z-20 bg-none bg-top-right bg-no-repeat md:bg-size-[48%_auto] lg:bg-size-[45%_auto] xl:blur-md"></div>

@@ -1,4 +1,4 @@
-import AuthPage from '@/components/layout/AuthPage.jsx';
+import AuthPage from '@/features/auth/components/AuthPage/AuthPage.jsx';
 import regImgSmall from '@/assets/images/register-274.webp';
 import regImgMedium from '@/assets/images/register-548.webp';
 import regImgLarge from '@/assets/images/register-905.webp';

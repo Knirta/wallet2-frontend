@@ -3,7 +3,6 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { MdEmail } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
-import { loginUser } from '@/services/auth.js';
 import Button from '@/components/ui/Button';
 import FormInput from '@/components/ui/FormInput';
 
@@ -30,8 +29,8 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      const data = await loginUser(values);
-      console.log(data);
+      // const data = await loginUser(values);
+      console.log(values);
       actions.resetForm();
     } catch (error) {
       console.error('Login error:', error); //toast
