@@ -5,8 +5,10 @@ export const registerUser = async credentials => {
   return data;
 };
 
-export const verifyEmail = async code => {
-  const { data } = await api.post('/api/auth/verify-email', { code });
+export const verifyEmail = async verificationCode => {
+  const { data } = await api.post('/api/auth/verify-email', {
+    verificationCode,
+  });
   return data;
 };
 
