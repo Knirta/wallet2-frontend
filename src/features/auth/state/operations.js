@@ -8,7 +8,9 @@ export const register = createAsyncThunk(
       const response = await registerUser(credentials);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Реєстрація не вдалася',
+      );
     }
   },
 );

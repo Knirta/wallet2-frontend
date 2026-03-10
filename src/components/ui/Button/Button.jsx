@@ -9,7 +9,7 @@ const Button = ({ children, variant, className, ...props }) => {
     <button
       {...props}
       className={mergeClasses(
-        `rounded-[20px] ${variantStyles} cursor-pointer p-3 tracking-widest uppercase outline transition-colors duration-300`,
+        `rounded-[20px] ${variantStyles} cursor-pointer p-3 tracking-widest uppercase outline transition-colors duration-300 active:scale-95`,
         className,
       )}
     >

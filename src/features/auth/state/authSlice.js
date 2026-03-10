@@ -7,7 +7,6 @@ const initialState = {
   isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
-  error: null,
 };
 
 const slice = createSlice({
@@ -17,15 +16,12 @@ const slice = createSlice({
     builder
       .addCase(register.pending, state => {
         state.isLoading = true;
-        state.error = null;
       })
       .addCase(register.fulfilled, state => {
         state.isLoading = false;
-        state.error = null;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(register.rejected, state => {
         state.isLoading = false;
-        state.error = action.payload;
       });
   },
 });

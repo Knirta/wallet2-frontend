@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://wallet-api-nitl.onrender.com/',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000',
 });
 // Тут додаємо токени до всіх запитів

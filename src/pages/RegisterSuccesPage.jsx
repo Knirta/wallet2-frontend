@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import AuthPage from '@/features/auth/components/AuthPage';
 import Button from '@/components/ui/Button';
 import RegisterSuccessBlock from '@/features/auth/components/RegisterSuccessBlock';
@@ -30,7 +31,10 @@ const RegisterSuccessPage = () => {
       await reVerifyEmail(email);
       setSeconds(60);
     } catch (error) {
-      console.error('Помилка верифікації імейла:', error); //toast
+      toast.error(
+        error.response?.data?.message ||
+          'Не вдалося надіслати лист для підтвердження реєстрації',
+      );
     } finally {
       setIsLoading(false);
     }
