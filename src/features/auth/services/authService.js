@@ -18,6 +18,8 @@ export const reVerifyEmail = async email => {
 };
 
 export const loginUser = async credentials => {
-  const { data } = await api.post('/api/auth/login', credentials);
+  const { data } = await api.post('/api/auth/login', credentials, {
+    withCredentials: true,
+  });
   return data;
 };
