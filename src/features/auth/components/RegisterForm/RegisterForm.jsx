@@ -12,17 +12,17 @@ import FormInput from '@/components/ui/FormInput';
 import { register } from '@/features/auth/state/operations.js';
 
 const RegisterForm = () => {
-  const usernameFieldId = useId();
+  const nameFieldId = useId();
   const emailFieldId = useId();
   const passwordFieldId = useId();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const initialValues = { username: '', email: '', password: '' };
+  const initialValues = { name: '', email: '', password: '' };
 
   const registerSchema = Yup.object().shape({
-    username: Yup.string()
+    name: Yup.string()
       .min(2, "Ім'я занадто коротке!")
       .max(40, "Ім'я занадто довге!")
       .required("Обов'язкове поле!"),
@@ -73,8 +73,8 @@ const RegisterForm = () => {
           <Form className="mt-12 flex flex-col gap-8 bg-white/30 backdrop-blur-md">
             <FormInput
               type="text"
-              name="username"
-              id={usernameFieldId}
+              name="name"
+              id={nameFieldId}
               placeholder="Ваше ім'я"
               aria-label="Ім'я користувача"
               icon={BiSolidUserRectangle}

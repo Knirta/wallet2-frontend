@@ -1,8 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register } from './operations.js';
+import { register, login } from './operations.js';
 
 const initialState = {
-  user: { username: '', email: '' },
+  user: {
+    name: '',
+    email: '',
+    totalBalance: 0,
+    currency: 'UAH',
+    avatarUrl: '',
+  },
   token: '',
   isLoggedIn: false,
   isRefreshing: false,
@@ -21,6 +27,18 @@ const slice = createSlice({
         state.isLoading = false;
       })
       .addCase(register.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(login.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(login.rejected, state => {
         state.isLoading = false;
       });
   },
