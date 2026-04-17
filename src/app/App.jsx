@@ -1,9 +1,30 @@
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { router } from './router.jsx';
+import {
+  selectIsAuthLoading,
+  selectToken,
+  selectUser,
+} from '@/features/auth/state/selectors.js';
+import { current } from '@/features/auth/state/operations.js';
 
 const App = () => {
-  return (
+  const dispatch = useDispatch();
+  const isAuthLoading = useSelector(selectIsAuthLoading);
+  const token = useSelector(selectToken);
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    if (token && !user) {
+      dispatch(current());
+    }
+  }, [dispatch, token, user]);
+
+  return isAuthLoading ? (
+    <b>...оновлення сесії</b>
+  ) : (
     <>
       <Toaster position="top-right" reverseOrder={false} />
       <RouterProvider router={router} />
