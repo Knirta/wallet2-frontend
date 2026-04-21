@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Loader from '@/components/ui/Loader';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,7 +24,7 @@ const App = () => {
   }, [dispatch, token, user]);
 
   return isAuthLoading ? (
-    <b>...оновлення сесії</b>
+    <Loader fullPage={true} />
   ) : (
     <>
       <Toaster position="top-right" reverseOrder={false} />

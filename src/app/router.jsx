@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { ProtectedRoute, RestrictedRoute } from './guards';
 import RootLayout from '@/components/layout/RootLayout.jsx';
 import AuthLayout from '@/components/layout/AuthLayout.jsx';
 import MainLayout from '@/components/layout/MainLayout.jsx';
@@ -16,31 +17,42 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/login" replace /> },
       {
-        element: <AuthLayout />,
+        element: <RestrictedRoute />,
         children: [
           {
-            path: 'register',
-            element: <RegisterPage />,
-          },
-          {
-            path: 'login',
-            element: <LoginPage />,
-          },
-          { path: 'register-success', element: <RegisterSuccessPage /> },
-          {
-            path: 'verify-email',
-            element: <VerifyEmailPage />,
+            element: <AuthLayout />,
+            children: [
+              {
+                path: 'register',
+                element: <RegisterPage />,
+              },
+              {
+                path: 'login',
+                element: <LoginPage />,
+              },
+              { path: 'register-success', element: <RegisterSuccessPage /> },
+              {
+                path: 'verify-email',
+                element: <VerifyEmailPage />,
+              },
+            ],
           },
         ],
       },
+
       {
-        element: <MainLayout />,
+        element: <ProtectedRoute />,
         children: [
           {
-            path: 'dashboard',
-            element: <DashboardPage />,
+            element: <MainLayout />,
+            children: [
+              {
+                path: 'dashboard',
+                element: <DashboardPage />,
+              },
+              { path: 'stats', element: <StatsPage /> },
+            ],
           },
-          { path: 'stats', element: <StatsPage /> },
         ],
       },
     ],
