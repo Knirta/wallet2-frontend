@@ -17,6 +17,20 @@ api.interceptors.request.use(config => {
   return config;
 });
 
+let isRefreshing = false;
+let failedQueue = [];
+
+const processQueue = (error, token = null) => {
+  failedQueue.forEach(prom => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
+
 api.interceptors.response.use(
   response => response,
   async error => {
@@ -27,7 +41,19 @@ api.interceptors.response.use(
       !originalRequest._retry &&
       !isPublicRoute(originalRequest.url)
     ) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(token => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return api(originalRequest);
+          })
+          .catch(err => Promise.reject(err));
+      }
+
       originalRequest._retry = true;
+      isRefreshing = true;
 
       try {
         const { data: result } = await store.dispatch(refresh()).unwrap();
@@ -36,10 +62,14 @@ api.interceptors.response.use(
           return Promise.resolve({ data: result.data });
         }
 
+        processQueue(null, result.data.token);
         originalRequest.headers.Authorization = `Bearer ${result.data.token}`;
         return api(originalRequest);
       } catch (refreshError) {
+        processQueue(refreshError, null);
         return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
       }
     }
 
