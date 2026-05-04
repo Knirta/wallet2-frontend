@@ -21,10 +21,10 @@ const VerifyEmailBlock = () => {
   }, [searchParams, navigate]);
 
   return (
-    <div className="border-blue mt-14 mb-8 max-w-md min-w-70 rounded-[20px] border p-8">
+    <div className="border-brand-blue mt-14 mb-8 max-w-md min-w-70 rounded-[20px] border p-8">
       {status === 'loading' && (
         <div className="flex items-center justify-center gap-5">
-          <div className="border-blue h-5 w-5 animate-spin rounded-full border-2 border-t-transparent"></div>
+          <div className="border-brand-blue h-5 w-5 animate-spin rounded-full border-2 border-t-transparent"></div>
           <p>Підтверджуємо Ваш імейл...</p>
         </div>
       )}

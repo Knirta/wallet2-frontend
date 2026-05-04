@@ -48,7 +48,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md min-w-70">
+    <div className="w-full min-w-70 max-md:max-w-md">
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}

@@ -12,7 +12,7 @@ const FormInput = ({ icon: Icon = null, type, id, ...props }) => {
   const inputType = type === 'password' && showPassword ? 'text' : type;
 
   const iconStyles = clsx(
-    'text-gray group-focus-within:text-green h-5 w-5 shrink-0 transition-all duration-200 group-focus-within:scale-110',
+    'text-brand-gray group-focus-within:text-brand-green h-5 w-5 shrink-0 transition-all duration-200 group-focus-within:scale-110',
     isError && 'text-red-500',
   );
 
@@ -28,7 +28,7 @@ const FormInput = ({ icon: Icon = null, type, id, ...props }) => {
       <label
         htmlFor={id}
         className={clsx(
-          'border-gray group focus-within:border-green flex cursor-text items-center gap-5 border-b p-3 transition-all duration-200',
+          'border-brand-gray group focus-within:border-brand-green flex cursor-text items-center gap-5 border-b p-3 transition-all duration-200',
           isError && 'border-red-500',
         )}
       >
