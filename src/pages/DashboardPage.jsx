@@ -18,8 +18,8 @@ const DashboardPage = () => {
           alt="No transactions"
         />
         <p>
-          Вітання, {userName}! У Вас ще немає транзакцій. Додайте першу, щоб
-          почати облік!
+          Вітання, <span className="font-bold">{userName}</span>! У Вас ще немає
+          транзакцій. Додайте першу, щоб почати облік!
         </p>
       </div>
 

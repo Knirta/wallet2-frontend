@@ -14,7 +14,7 @@ const Header = () => {
     <header className="relative z-30 flex shrink-0 items-center justify-between bg-white px-5 py-5 lg:px-21">
       <Link to="/dashboard" className="flex items-center justify-center gap-5">
         <Logo className="h-auto w-8 md:w-10" />
-        <span className="text-2xl font-bold">Wallet</span>
+        <span className="font-display text-2xl font-bold">Wallet</span>
       </Link>
       <div>
         {/* <img src={userAvatarUrl} alt="User Avatar" /> */}
