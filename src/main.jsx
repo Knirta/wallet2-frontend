@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { store, persistor } from '@/app/store.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import '@/index.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import App from '@/app/App.jsx';
 
 createRoot(document.getElementById('root')).render(

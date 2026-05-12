@@ -14,7 +14,7 @@ const MainLayout = ({ children }) => {
     <div className="bg-bgLight relative container mx-auto flex min-h-screen flex-col overflow-x-hidden">
       <Header />
       <div className="lg-px-10 relative z-30 grid grow grid-cols-1 px-5 py-2.5 lg:py-5 xl:grid-cols-[9fr_16fr] xl:px-21 xl:py-10">
-        <aside>Sidebar</aside>
+        <aside>ㅤ</aside>
         <main className="relative xl:pl-7.5">
           <Outlet>{children}</Outlet>
         </main>

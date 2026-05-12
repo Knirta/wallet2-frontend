@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useField } from 'formik';
 import clsx from 'clsx';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
+import { mergeClasses } from '@/utils';
 
 const FormInput = ({ icon: Icon = null, type, id, ...props }) => {
   const [field, meta] = useField(props);
@@ -19,7 +20,7 @@ const FormInput = ({ icon: Icon = null, type, id, ...props }) => {
   return (
     <div>
       {isError ? (
-        <div className="relative top-2 h-4 animate-pulse text-center text-xs text-red-500">
+        <div className="text-brand-red relative top-2 h-4 animate-pulse text-center text-xs">
           {meta.error}
         </div>
       ) : (
@@ -29,7 +30,7 @@ const FormInput = ({ icon: Icon = null, type, id, ...props }) => {
         htmlFor={id}
         className={clsx(
           'border-brand-gray group focus-within:border-brand-green flex cursor-text items-center gap-5 border-b p-3 transition-all duration-200',
-          isError && 'border-red-500',
+          isError && 'border-brand-red',
         )}
       >
         {Icon && <Icon className={iconStyles} />}
@@ -38,7 +39,10 @@ const FormInput = ({ icon: Icon = null, type, id, ...props }) => {
           {...props}
           id={id}
           type={inputType}
-          className="flex-1 border-none outline-none focus:outline-none"
+          className={mergeClasses(
+            'placeholder:text-brand-gray flex-1 border-none outline-none focus:outline-none',
+            props.className,
+          )}
         />
         {type === 'password' && (
           <button

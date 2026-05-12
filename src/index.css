@@ -44,9 +44,22 @@
   --color-hover-brand-green: #2abb9b;
   --color-brand-blue: #4a56e2;
   --color-brand-gray: #bdbdbd;
+  --color-brand-red: #ff6596;
   --color-bgDark: #e7eaf2;
   --color-bgLight: #f1f2f7;
   --background-image-ellipse-pink: url('./assets/images/svg/ellipse-pink.svg');
   --background-image-ellipse-violet: url('./assets/images/svg/ellipse-violet.svg');
   --background-image-ellipse-pink-desktop: url('./assets/images/svg/ellipse-pink-desktop.svg');
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
 }
