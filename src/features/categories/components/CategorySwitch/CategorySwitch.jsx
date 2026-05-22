@@ -4,7 +4,7 @@ import { FaPlus, FaMinus } from 'react-icons/fa6';
 
 const CategorySwitch = ({ isExpense, handleSwitchOnChange }) => {
   return (
-    <div className="switch mb-10 flex items-center gap-3">
+    <div className="switch flex items-center gap-3 self-center">
       <span
         className={clsx(
           'text-brand-gray text-sm',

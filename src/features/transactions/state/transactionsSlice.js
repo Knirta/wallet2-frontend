@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllCategories } from './operations.js';
+import { addTransaction } from './operations.js';
 
 const initialState = {
   items: [],
@@ -8,19 +8,20 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'categories',
+  name: 'transactions',
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(getAllCategories.pending, state => {
+      .addCase(addTransaction.pending, state => {
         state.isLoading = true;
       })
-      .addCase(getAllCategories.fulfilled, (state, action) => {
-        state.items = action.payload.categories;
+      .addCase(addTransaction.fulfilled, (state, action) => {
+        state.items.push(action.payload.transaction);
         state.isLoading = false;
       })
-      .addCase(getAllCategories.rejected, state => {
+      .addCase(addTransaction.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error.message;
       });
   },
 });

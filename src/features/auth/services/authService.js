@@ -33,7 +33,6 @@ export const getCurrentUser = async () => {
 };
 
 export const refreshUser = async () => {
-  console.log('Виклик refreshUser');
   const response = await axios.get(
     `${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh`,
     {

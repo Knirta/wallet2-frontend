@@ -12,6 +12,7 @@ const CategoryListBox = ({
   isExpense,
   selectedCategory,
   handleChange,
+  isError,
 }) => {
   return (
     <Listbox
@@ -20,7 +21,12 @@ const CategoryListBox = ({
       as="div"
       className="relative"
     >
-      <ListboxButton className="border-brand-gray focus:border-brand-green relative block w-full cursor-pointer border-b pl-4 text-left text-base/10 focus:outline-none">
+      <ListboxButton
+        className={clsx(
+          'border-brand-gray focus:border-brand-green relative block w-full cursor-pointer border-b pl-4 text-left text-base/10 focus:outline-none',
+          isError && 'border-brand-red',
+        )}
+      >
         {selectedCategory ? (
           selectedCategory.name
         ) : (

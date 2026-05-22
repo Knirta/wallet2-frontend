@@ -1,9 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createTransaction } from '@/features/transactions/services/transactionsService.js';
 
-export const fetchTransactions = createAsyncThunk(
-  'transactions/fetchAll',
-  async () => {
-    const response = await fetch('/api/transactions');
-    return response.data;
+export const addTransaction = createAsyncThunk(
+  'transactions/addTransaction',
+  async (transactionData, thunkAPI) => {
+    try {
+      const result = await createTransaction(transactionData);
+      return result.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Не вдалося додати транзакцію',
+      );
+    }
   },
 );

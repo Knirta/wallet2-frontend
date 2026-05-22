@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import {
@@ -9,6 +9,7 @@ import {
   DialogBackdrop,
 } from '@headlessui/react';
 import { useFormik, FormikProvider } from 'formik';
+import toast from 'react-hot-toast';
 import CategorySwitch from '@/features/categories/components/CategorySwitch';
 import CategoryListBox from '@/features/categories/components/CategoryListBox';
 import FormInput from '@/components/ui/FormInput';
@@ -16,49 +17,37 @@ import Button from '@/components/ui/Button';
 import DateSelect from '@/features/transactions/components/DateSelect';
 import { IoCloseOutline } from 'react-icons/io5';
 import { selectCategories } from '@/features/categories/state/selectors.js';
+import { addTransaction } from '@/features/transactions/state/operations.js';
 
 const AddTransactionDialog = ({ isOpen, handleClose }) => {
   const [isExpense, setIsExpense] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const visibleCategories = categories.filter(category =>
     isExpense ? category.type === 'expense' : category.type === 'income',
   );
 
-  const resetStates = () => {
-    setIsExpense(false);
-    setSelectedCategory(null);
-  };
-
-  const handleDialogClose = () => {
-    formik.resetForm();
-    resetStates();
-    handleClose();
-  };
-
-  const handleSubmit = () => {
-    console.log(formik.values);
-    handleDialogClose();
-  };
-
   const initialValues = {
+    type: 'income',
     category: '',
     amount: '',
     date: new Date(),
-    description: '',
+    comment: '',
   };
 
   const AddTransactionSchema = Yup.object().shape({
+    type: Yup.string().oneOf(['income', 'expense']).required(),
     category: Yup.string().required('Виберіть категорію'),
     amount: Yup.number()
       .typeError('Сума повинна бути числом')
-      .positive('Сума повинна бути більше нуля')
+      .min(0.01, 'Сума повинна бути більше нуля')
       .required("Обов'язкове поле"),
     date: Yup.date()
       .max(new Date(), 'Дата не може бути в майбутньому')
       .required("Обов'язкове поле"),
-    description: Yup.string().max(255, 'Максимум 255 символів'),
+    comment: Yup.string().max(255, 'Максимум 255 символів'),
   });
 
   const formik = useFormik({
@@ -67,16 +56,39 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
     validationSchema: AddTransactionSchema,
   });
 
-  const handleSwitchOnChange = () => {
-    setIsExpense(!isExpense);
+  function handleSwitchOnChange() {
+    const nextIsExpense = !isExpense;
+    setIsExpense(nextIsExpense);
     setSelectedCategory(null);
-    formik.resetForm();
-  };
+    formik.resetForm({
+      values: { ...initialValues, type: nextIsExpense ? 'expense' : 'income' },
+    });
+  }
 
-  const handleCategoryChange = category => {
+  function resetStates() {
+    setIsExpense(false);
+    setSelectedCategory(null);
+  }
+
+  function handleDialogClose() {
+    formik.resetForm();
+    resetStates();
+    handleClose();
+  }
+
+  function handleCategoryChange(category) {
     setSelectedCategory(category);
     formik.setFieldValue('category', category._id);
-  };
+  }
+
+  async function handleSubmit(values) {
+    try {
+      await dispatch(addTransaction(values)).unwrap();
+      handleDialogClose();
+    } catch (error) {
+      toast.error(error);
+    }
+  }
 
   return (
     <Dialog
@@ -109,21 +121,31 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
             <DialogTitle as="h2" className="mb-10 text-2xl font-bold">
               Додати транзакцію
             </DialogTitle>
-            <CategorySwitch
-              isExpense={isExpense}
-              handleSwitchOnChange={handleSwitchOnChange}
-            />
             <FormikProvider value={formik}>
               <form
                 className="flex w-full flex-col gap-8"
                 onSubmit={formik.handleSubmit}
               >
-                <CategoryListBox
-                  categories={visibleCategories}
+                <CategorySwitch
                   isExpense={isExpense}
-                  selectedCategory={selectedCategory}
-                  handleChange={handleCategoryChange}
+                  handleSwitchOnChange={handleSwitchOnChange}
                 />
+                <div>
+                  {formik.touched.category && formik.errors.category ? (
+                    <div className="text-brand-red relative top-2 h-4 animate-pulse text-center text-xs">
+                      {formik.errors.category}
+                    </div>
+                  ) : (
+                    <div className="relative top-2 h-4"></div>
+                  )}
+                  <CategoryListBox
+                    categories={visibleCategories}
+                    isExpense={isExpense}
+                    selectedCategory={selectedCategory}
+                    handleChange={handleCategoryChange}
+                    isError={formik.touched.category && formik.errors.category}
+                  />
+                </div>
                 <div className="grid-row-1 relative grid gap-8 md:grid-cols-2 md:gap-4">
                   <FormInput
                     data-autofocus
@@ -149,7 +171,7 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
                 </div>
                 <FormInput
                   type="text"
-                  name="description"
+                  name="comment"
                   placeholder="Опис (необов'язково)"
                   aria-label="Опис транзакції"
                 />
@@ -160,10 +182,7 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
                   variant="secondary"
                   type="button"
                   className="-mt-2"
-                  onClick={() => {
-                    formik.resetForm();
-                    resetStates();
-                  }}
+                  onClick={handleDialogClose}
                 >
                   Скасувати
                 </Button>
