@@ -1,27 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import emptyStateImage from '@/assets/images/empty-state.png';
 import { FaPlus } from 'react-icons/fa6';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUserName } from '@/features/auth/state/selectors.js';
+import { selectTransactions } from '@/features/transactions/state/selectors';
 import AddTransactionDialog from '@/features/transactions/components/AddTransactionDialog';
+import { getTransactions } from '@/features/transactions/state/operations.js';
 
 const DashboardPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const userName = useSelector(selectUserName);
+  const transactions = useSelector(selectTransactions);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTransactions());
+  }, [dispatch]);
 
   return (
     <>
-      <div className="flex items-center gap-4">
-        <img
-          className="h-auto w-15"
-          src={emptyStateImage}
-          alt="No transactions"
-        />
-        <p>
-          Вітання, <span className="font-bold">{userName}</span>! У Вас ще немає
-          транзакцій. Додайте першу, щоб почати облік!
-        </p>
-      </div>
+      {transactions.length > 0 ? (
+        <div>
+          {transactions.map(transaction => (
+            <div key={transaction._id}>
+              {transaction.amount} - {transaction.comment}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex items-center gap-4">
+          <img
+            className="h-auto w-15"
+            src={emptyStateImage}
+            alt="No transactions"
+          />
+          <p>
+            Вітання, <span className="font-bold">{userName}</span>! У Вас ще
+            немає транзакцій. Додайте першу, щоб почати облік!
+          </p>
+        </div>
+      )}
 
       <div
         onClick={() => setIsDialogOpen(true)}
