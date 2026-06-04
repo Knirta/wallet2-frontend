@@ -3,6 +3,7 @@ import {
   selectTransactions,
   selectTotalPages,
 } from '@/features/transactions/state/selectors';
+import TransactionCell from '@/features/transactions/components/TransactionCell';
 
 import clsx from 'clsx';
 
@@ -22,7 +23,7 @@ const TransactionsList = ({ page, setPage }) => {
           <div className="text-right">Баланс</div>
         </div>
 
-        {transactions.map(transaction => (
+        {transactions.map((transaction, index) => (
           <div
             key={transaction._id}
             className={clsx(
@@ -33,60 +34,53 @@ const TransactionsList = ({ page, setPage }) => {
               'md:contents',
             )}
           >
-            <div className="flex items-center justify-between border-b border-gray-200 py-3 max-md:px-5 md:block md:border-none md:pl-5">
-              <div className="font-bold md:hidden">Дата</div>
-              <div className="text-right md:text-left">
-                {new Date(transaction.date).toLocaleDateString('uk-UA')}
-              </div>
-            </div>
-            <div className="flex items-center justify-between border-b border-gray-200 py-3 max-md:px-5 md:block md:border-none">
-              <div className="font-bold md:hidden">Тип</div>
-              <div className="text-right md:text-center">
-                {transaction.type === 'income' ? '+' : '-'}
-              </div>
-            </div>
-            <div className="flex items-center justify-between border-b border-gray-200 py-3 max-md:px-5 md:block md:border-b-0 md:border-none">
-              <div className="font-bold md:hidden">Категорія</div>
-              <div className="text-right md:text-left">
-                {transaction.category.name}
-              </div>
-            </div>
-            <div className="flex items-center justify-between gap-x-8 border-b border-gray-200 py-3 max-md:px-5 md:block md:border-b-0 md:border-none">
-              <div className="font-bold md:hidden">Коментар</div>
-              <div className="text-right md:text-left">
-                {transaction.comment.trim() || '-'}
-              </div>
-            </div>
-            <div className="flex items-center justify-between border-b border-gray-200 py-3 max-md:px-5 md:block md:border-b-0 md:border-none">
-              <div className="font-bold md:hidden">Сума</div>
-              <div
-                className={clsx(
-                  transaction.type === 'income'
-                    ? 'text-brand-green'
-                    : 'text-brand-red',
-                  'text-right font-bold',
-                )}
-              >
-                {transaction.amount
-                  .toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })
-                  .replace(/,/g, ' ')}
-              </div>
-            </div>
-            <div className="flex items-center justify-between py-3 max-md:px-5 md:block md:pr-5">
-              <div className="font-bold md:hidden">Баланс</div>
-              <div className="text-right">
-                {transaction.balanceAfter
-                  .toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })
-                  .replace(/,/g, ' ')}
-              </div>
-            </div>
-            <div className="col-span-6 border-b border-gray-200 max-md:hidden"></div>
+            <TransactionCell
+              title="Дата"
+              value={new Date(transaction.date).toLocaleDateString('uk-UA')}
+              isFirst={true}
+            />
+            <TransactionCell
+              title="Тип"
+              value={transaction.type === 'income' ? '+' : '-'}
+              valueStyle="md:text-center"
+            />
+            <TransactionCell
+              title="Категорія"
+              value={transaction.category.name}
+            />
+            <TransactionCell
+              title="Коментар"
+              value={transaction.comment.trim() || '-'}
+            />
+            <TransactionCell
+              title="Сума"
+              value={transaction.amount
+                .toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+                .replace(/,/g, ' ')}
+              valueStyle={clsx(
+                transaction.type === 'income'
+                  ? 'text-brand-green'
+                  : 'text-brand-red',
+                'text-right font-bold',
+              )}
+            />
+            <TransactionCell
+              title="Баланс"
+              value={transaction.balanceAfter
+                .toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+                .replace(/,/g, ' ')}
+              isLast={true}
+              valueStyle="md:text-right"
+            />
+            {index !== transactions.length - 1 && (
+              <div className="col-span-6 border-b border-gray-200 max-md:hidden"></div>
+            )}
           </div>
         ))}
       </div>
