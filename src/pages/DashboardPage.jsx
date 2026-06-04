@@ -22,7 +22,7 @@ const DashboardPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTransactions({ page, limit: 12 }));
+    dispatch(getTransactions({ page, limit: 3 }));
   }, [dispatch, page]);
 
   if (isTransactionsLoading && transactions.length === 0) {
