@@ -5,7 +5,9 @@ export const createTransaction = async transactionData => {
   return response.data;
 };
 
-export const getUserTransactions = async () => {
-  const response = await api.get('/api/transactions');
+export const getUserTransactions = async ({ page, limit }) => {
+  const response = await api.get(
+    `/api/transactions?page=${page}&limit=${limit}`,
+  );
   return response.data;
 };

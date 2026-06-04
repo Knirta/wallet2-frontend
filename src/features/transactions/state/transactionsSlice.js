@@ -3,6 +3,8 @@ import { addTransaction, getTransactions } from './operations.js';
 
 const initialState = {
   items: [],
+  currentPage: 1,
+  totalPages: 1,
   isLoading: false,
   error: null,
 };
@@ -16,7 +18,7 @@ const slice = createSlice({
         state.isLoading = true;
       })
       .addCase(addTransaction.fulfilled, (state, action) => {
-        state.items.push(action.payload.transaction);
+        state.items = [action.payload.transaction, ...state.items];
         state.isLoading = false;
       })
       .addCase(addTransaction.rejected, (state, action) => {
@@ -28,6 +30,8 @@ const slice = createSlice({
       })
       .addCase(getTransactions.fulfilled, (state, action) => {
         state.items = action.payload.transactions;
+        state.currentPage = action.payload.currentPage;
+        state.totalPages = action.payload.totalPages;
         state.isLoading = false;
       })
       .addCase(getTransactions.rejected, (state, action) => {
