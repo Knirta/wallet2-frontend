@@ -29,7 +29,9 @@ const slice = createSlice({
         state.isLoading = true;
       })
       .addCase(getTransactions.fulfilled, (state, action) => {
-        state.items = action.payload.transactions;
+        state.items = action.payload.isAppending
+          ? [...state.items, ...action.payload.transactions]
+          : action.payload.transactions;
         state.currentPage = action.payload.currentPage;
         state.totalPages = action.payload.totalPages;
         state.isLoading = false;

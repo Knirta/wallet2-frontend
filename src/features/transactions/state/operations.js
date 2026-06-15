@@ -20,10 +20,10 @@ export const addTransaction = createAsyncThunk(
 
 export const getTransactions = createAsyncThunk(
   'transactions/getTransactions',
-  async (paginationData, thunkAPI) => {
+  async ({ page, limit, isAppending }, thunkAPI) => {
     try {
-      const result = await getUserTransactions(paginationData);
-      return result.data;
+      const result = await getUserTransactions({ page, limit });
+      return { ...result.data, isAppending };
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || 'Не вдалося отримати транзакції',

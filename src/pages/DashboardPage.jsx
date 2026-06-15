@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import emptyStateImage from '@/assets/images/empty-state.png';
 import { FaPlus } from 'react-icons/fa6';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUserName } from '@/features/auth/state/selectors.js';
 import {
   selectTransactions,
   selectIsTransactionsLoading,
@@ -10,20 +8,27 @@ import {
 import AddTransactionDialog from '@/features/transactions/components/AddTransactionDialog';
 import TransactionsList from '@/features/transactions/components/TransactionsList';
 import Loader from '@/components/ui/Loader';
+import EmptyState from '@/features/transactions/components/EmptyState';
+import Pagination from '@/features/transactions/components/Pagination';
 import { getTransactions } from '@/features/transactions/state/operations.js';
 
 const DashboardPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [page, setPage] = useState(1);
-  const userName = useSelector(selectUserName);
+
   const isTransactionsLoading = useSelector(selectIsTransactionsLoading);
   const transactions = useSelector(selectTransactions);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTransactions({ page, limit: 3 }));
-  }, [dispatch, page]);
+    dispatch(getTransactions({ page: 1, limit: 3, isAppending: false }));
+  }, [dispatch]);
+
+  const handlePageChange = (targetPage, isAppending = false) => {
+    setPage(targetPage);
+    dispatch(getTransactions({ page: targetPage, limit: 3, isAppending }));
+  };
 
   if (isTransactionsLoading && transactions.length === 0) {
     return <Loader />;
@@ -32,21 +37,12 @@ const DashboardPage = () => {
   return (
     <>
       {transactions.length > 0 ? (
-        <TransactionsList page={page} setPage={setPage} />
+        <>
+          <TransactionsList page={page} onPageChange={handlePageChange} />
+          <Pagination page={page} onPageChange={handlePageChange} />
+        </>
       ) : (
-        !isTransactionsLoading && (
-          <div className="flex items-center gap-4">
-            <img
-              className="h-auto w-15"
-              src={emptyStateImage}
-              alt="No transactions"
-            />
-            <p>
-              Вітання, <span className="font-bold">{userName}</span>! У Вас ще
-              немає транзакцій. Додайте першу, щоб почати облік!
-            </p>
-          </div>
-        )
+        !isTransactionsLoading && <EmptyState />
       )}
 
       <div
