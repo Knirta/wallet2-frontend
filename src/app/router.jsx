@@ -6,9 +6,10 @@ import MainLayout from '@/components/layout/MainLayout.jsx';
 import RegisterPage from '@/pages/RegisterPage.jsx';
 import LoginPage from '@/pages/LoginPage.jsx';
 import RegisterSuccessPage from '@/pages/RegisterSuccesPage.jsx';
-import VerifyEmailPage from '@/pages/VerifyEmail.Page.jsx';
+import VerifyEmailPage from '@/pages/VerifyEmailPage.jsx';
 import DashboardPage from '@/pages/DashboardPage.jsx';
-import StatsPage from '@/pages/Stats.jsx';
+import StatsPage from '@/pages/StatsPage.jsx';
+import ExchangePage from '@/pages/ExchangePage';
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ export const router = createBrowserRouter([
                 element: <DashboardPage />,
               },
               { path: 'stats', element: <StatsPage /> },
+              { path: 'exchange', element: <ExchangePage /> },
             ],
           },
         ],
