@@ -1,24 +1,12 @@
-import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useIsNotMobile } from '@/hooks/useIsNotMobile.js';
 import ExchangeRate from '@/components/ui/ExchangeRate';
 
 const ExchangePage = () => {
-  const [isDesktop, setIsDesktop] = useState(() => {
-    window.matchMedia('(min-width: 768px)').matches;
-  });
+  const isNotMobile = useIsNotMobile();
+  console.log(isNotMobile);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 768px)');
-    const handleChange = e => {
-      setIsDesktop(e.matches);
-    };
-    mediaQuery.addEventListener('change', handleChange);
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange);
-    };
-  }, []);
-
-  if (isDesktop) {
+  if (isNotMobile) {
     return <Navigate to="/dashboard" replace />;
   }
 
