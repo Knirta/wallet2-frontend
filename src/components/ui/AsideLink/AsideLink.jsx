@@ -23,7 +23,7 @@ const AsideLink = ({ hidden = false, to, icon: Icon = null, title = '' }) => {
           )}
           <span
             className={clsx(
-              'max-md:hidden md:text-lg',
+              'font-display max-md:hidden md:text-lg',
               isActive && 'font-bold',
             )}
           >

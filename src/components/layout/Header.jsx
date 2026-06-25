@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Button from '@/components/ui/Button';
+import { LogoutIcon } from '@/components/icons';
 import Logo from '@/components/ui/Logo';
 import { logout } from '@/features/auth/state/operations.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,12 +16,16 @@ const Header = () => {
         <Logo className="h-auto w-8 md:w-10" />
         <span className="font-display text-2xl font-bold">Wallet</span>
       </Link>
-      <div>
+      <div className="text-brand-gray flex items-center text-lg">
         {/* <img src={userAvatarUrl} alt="User Avatar" /> */}
-        <span className="mr-4">{userName}</span>
-        <Button variant="primary" onClick={() => dispatch(logout())}>
-          Вийти
-        </Button>
+        <p className="md:border-r md:pr-3.5">{userName}</p>
+        <p
+          className="flex cursor-pointer items-center pl-3.5"
+          onClick={() => dispatch(logout())}
+        >
+          <LogoutIcon />
+          <span className="pl-3 max-md:hidden">Вийти</span>
+        </p>
       </div>
     </header>
   );

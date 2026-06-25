@@ -30,8 +30,8 @@ const Aside = () => {
         {transactions.length > 0 && shouldShowBalance && (
           <div className="balance rounded-[30px] bg-white pt-2 pr-4 pb-4 pl-7.5">
             <p className="text-font-gray mb-2 text-xs uppercase">Ваш баланс</p>
-            <p className="text-3xl font-bold">
-              <span className="font-normal">₴ </span>
+            <p className="font-display text-3xl font-bold">
+              <span className="font-sans font-normal">₴ </span>
               {totalBalance
                 .toLocaleString('en-US', {
                   minimumFractionDigits: 2,
