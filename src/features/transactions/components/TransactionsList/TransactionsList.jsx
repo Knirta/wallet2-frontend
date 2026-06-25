@@ -111,7 +111,7 @@ const TransactionsList = ({ page, onPageChange }) => {
         ref={lastElementRef}
         className="my-2 flex h-12 w-full items-center justify-center md:hidden"
       >
-        {isTransactionsLoading && page < totalPages && (
+        {isTransactionsLoading && page !== totalPages && (
           <p className="animate-pulse text-sm text-gray-400">
             Завантаження транзакцій...
           </p>
