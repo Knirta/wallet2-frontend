@@ -3,7 +3,7 @@ const ExchangeIcon = () => {
     <svg
       viewBox="0 0 38 38"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-9.5 w-9.5"
+      className="h-9.5 w-9.5 md:h-5 md:w-5"
       fill="currentColor"
     >
       <path
