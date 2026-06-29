@@ -20,7 +20,7 @@ const ExchangeRate = () => {
           .filter(
             item =>
               allowedCodes.includes(item.currencyCodeA) &&
-              item.currenceCodeB === 980,
+              item.currencyCodeB === 980,
           )
           .map(item => {
             let codeName = '';
