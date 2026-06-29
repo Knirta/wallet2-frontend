@@ -82,7 +82,7 @@ const ExchangeRate = () => {
       </div>
     );
   }
-
+  console.log('rates', rates);
   return (
     <div className="bg-brand-violet bg-diagram mx-auto grid max-w-80 grid-cols-3 overflow-hidden rounded-[30px] bg-contain bg-bottom bg-no-repeat pb-5.5 text-white md:max-w-100 xl:max-w-none xl:pb-33">
       <div className="bg-white/20 py-3 pl-5 text-lg font-bold xl:pt-5 xl:pl-7.5">
