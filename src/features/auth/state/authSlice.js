@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, login, logout, current, refresh } from './operations.js';
+import { addTransaction } from '@/features/transactions/state/operations.js';
 
 // user: {
 //   name: '',
@@ -76,6 +77,9 @@ const slice = createSlice({
         state.isAuthLoading = false;
         state.user = null;
         state.token = null;
+      })
+      .addCase(addTransaction.fulfilled, (state, action) => {
+        state.user.totalBalance = action.payload.totalBalance;
       });
   },
 });
