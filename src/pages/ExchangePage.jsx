@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useIsNotMobile } from '@/hooks/useIsNotMobile.js';
-import ExchangeRate from '@/components/ui/ExchangeRate';
+import ExchangeRate from '@/features/currency/components/ExchangeRate';
 
 const ExchangePage = () => {
   const isNotMobile = useIsNotMobile();

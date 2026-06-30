@@ -13,13 +13,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  server: {
-    proxy: {
-      '/api-mono': {
-        target: 'https://api.monobank.ua',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api-mono/, ''),
-      },
-    },
-  },
 });

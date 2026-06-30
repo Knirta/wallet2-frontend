@@ -1,4 +1,4 @@
-import ExchangeRate from '@/components/ui/ExchangeRate';
+import ExchangeRate from '@/features/currency/components/ExchangeRate';
 import { useSelector } from 'react-redux';
 import { selectTotalBalance } from '@/features/auth/state/selectors';
 import { selectTransactions } from '@/features/transactions/state/selectors';
