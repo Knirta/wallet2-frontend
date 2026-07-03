@@ -7,7 +7,7 @@ import { addTransaction } from '@/features/transactions/state/operations.js';
 //   email: '',
 //   totalBalance: 0,
 //   currency: 'UAH',
-//   avatarUrl: '',
+//   avatarURL: '',
 // }
 const initialState = {
   user: null,
