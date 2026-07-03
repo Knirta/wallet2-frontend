@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectTransactions,
   selectIsTransactionsLoading,
+  selectCurrentPage,
 } from '@/features/transactions/state/selectors';
 import AddTransactionDialog from '@/features/transactions/components/AddTransactionDialog';
 import TransactionsList from '@/features/transactions/components/TransactionsList';
@@ -14,20 +15,18 @@ import { getTransactions } from '@/features/transactions/state/operations.js';
 
 const DashboardPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [page, setPage] = useState(1);
-
+  const page = useSelector(selectCurrentPage);
   const isTransactionsLoading = useSelector(selectIsTransactionsLoading);
   const transactions = useSelector(selectTransactions);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTransactions({ page: 1, limit: 3, isAppending: false }));
+    dispatch(getTransactions({ page: 1, limit: 9, isAppending: false }));
   }, [dispatch]);
 
   const handlePageChange = (targetPage, isAppending = false) => {
-    setPage(targetPage);
-    dispatch(getTransactions({ page: targetPage, limit: 3, isAppending }));
+    dispatch(getTransactions({ page: targetPage, limit: 9, isAppending }));
   };
 
   if (isTransactionsLoading && transactions.length === 0) {
@@ -39,7 +38,7 @@ const DashboardPage = () => {
       {transactions.length > 0 ? (
         <>
           <TransactionsList page={page} onPageChange={handlePageChange} />
-          <Pagination page={page} onPageChange={handlePageChange} />
+          <Pagination onPageChange={handlePageChange} />
         </>
       ) : (
         !isTransactionsLoading && <EmptyState />

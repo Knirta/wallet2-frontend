@@ -1,7 +1,11 @@
 import { useSelector } from 'react-redux';
-import { selectTotalPages } from '@/features/transactions/state/selectors';
+import {
+  selectCurrentPage,
+  selectTotalPages,
+} from '@/features/transactions/state/selectors';
 
-const Pagination = ({ page, onPageChange }) => {
+const Pagination = ({ onPageChange }) => {
+  const page = useSelector(selectCurrentPage);
   const totalPages = useSelector(selectTotalPages);
 
   if (totalPages <= 1) return null;

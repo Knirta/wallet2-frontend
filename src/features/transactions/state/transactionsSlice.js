@@ -19,6 +19,7 @@ const slice = createSlice({
       })
       .addCase(addTransaction.fulfilled, (state, action) => {
         state.items = [action.payload.transaction, ...state.items];
+        state.currentPage = 1;
         state.isLoading = false;
       })
       .addCase(addTransaction.rejected, (state, action) => {

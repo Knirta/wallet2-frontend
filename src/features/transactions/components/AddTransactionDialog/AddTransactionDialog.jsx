@@ -17,7 +17,10 @@ import Button from '@/components/ui/Button';
 import DateSelect from '@/features/transactions/components/DateSelect';
 import { IoCloseOutline } from 'react-icons/io5';
 import { selectCategories } from '@/features/categories/state/selectors.js';
-import { addTransaction } from '@/features/transactions/state/operations.js';
+import {
+  addTransaction,
+  getTransactions,
+} from '@/features/transactions/state/operations.js';
 
 const AddTransactionDialog = ({ isOpen, handleClose }) => {
   const [isExpense, setIsExpense] = useState(false);
@@ -84,6 +87,7 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
   async function handleSubmit(values) {
     try {
       await dispatch(addTransaction(values)).unwrap();
+      dispatch(getTransactions({ page: 1, limit: 9, isAppending: false }));
       handleDialogClose();
     } catch (error) {
       toast.error(error);
