@@ -43,12 +43,13 @@ const DashboardPage = () => {
       ) : (
         !isTransactionsLoading && <EmptyState />
       )}
-
-      <div
-        onClick={() => setIsDialogOpen(true)}
-        className="bg-brand-green shadow-brand-green/50 fixed right-4 bottom-5 z-40 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-xl text-white shadow-lg transition-transform hover:scale-105 md:absolute md:right-0 md:bottom-0"
-      >
-        <FaPlus />
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 container mx-auto">
+        <div
+          onClick={() => setIsDialogOpen(true)}
+          className="bg-brand-green shadow-brand-green/50 pointer-events-auto absolute right-6 bottom-6 z-40 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-xl text-white shadow-lg transition-transform hover:scale-105"
+        >
+          <FaPlus />
+        </div>
       </div>
       <AddTransactionDialog
         isOpen={isDialogOpen}

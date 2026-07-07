@@ -6,6 +6,7 @@ import {
   selectTotalPages,
 } from '@/features/transactions/state/selectors';
 import TransactionCell from '@/features/transactions/components/TransactionCell';
+import { FaPlus, FaMinus } from 'react-icons/fa6';
 import clsx from 'clsx';
 
 const TransactionsList = ({ page, onPageChange }) => {
@@ -36,8 +37,8 @@ const TransactionsList = ({ page, onPageChange }) => {
 
   return (
     <div className="w-full md:overflow-x-auto">
-      <div className="w-full md:grid md:grid-cols-[max-content_max-content_minmax(100px,max-content)_minmax(130px,1fr)_max-content_max-content] md:items-center md:gap-x-6">
-        <div className="hidden rounded-full bg-white px-5 py-4 font-bold md:col-span-6 md:grid md:grid-cols-subgrid md:items-center md:gap-x-10 md:border-none">
+      <div className="w-full md:grid md:grid-cols-[1fr_0.4fr_1.5fr_2.5fr_1.5fr_1.5fr] md:items-center md:gap-x-4 xl:gap-x-6">
+        <div className="hidden rounded-full bg-white px-5 py-4 font-bold md:col-span-6 md:grid md:grid-cols-[1fr_0.4fr_1.5fr_2.5fr_1.5fr_1.5fr] md:items-center md:gap-x-10 md:border-none">
           <div className="text-left">Дата</div>
           <div className="text-center">Тип</div>
           <div className="text-left">Категорія</div>
@@ -64,16 +65,18 @@ const TransactionsList = ({ page, onPageChange }) => {
             />
             <TransactionCell
               title="Тип"
-              value={transaction.type === 'income' ? '+' : '-'}
-              valueStyle="md:text-center"
+              value={transaction.type === 'income' ? <FaPlus /> : <FaMinus />}
+              valueStyle="flex items-center justify-end md:justify-center"
             />
             <TransactionCell
               title="Категорія"
               value={transaction.category.name}
+              valueStyle="break-words"
             />
             <TransactionCell
               title="Коментар"
               value={transaction.comment.trim() || '-'}
+              valueStyle="break-words"
             />
             <TransactionCell
               title="Сума"
@@ -87,7 +90,7 @@ const TransactionsList = ({ page, onPageChange }) => {
                 transaction.type === 'income'
                   ? 'text-brand-green'
                   : 'text-brand-red',
-                'md:text-right font-bold',
+                'md:text-right font-bold break-all',
               )}
             />
             <TransactionCell
@@ -99,7 +102,7 @@ const TransactionsList = ({ page, onPageChange }) => {
                 })
                 .replace(/,/g, ' ')}
               isLast={true}
-              valueStyle="md:text-right"
+              valueStyle="md:text-right break-all"
             />
             {index !== transactions.length - 1 && (
               <div className="col-span-6 border-b border-gray-200 max-md:hidden"></div>

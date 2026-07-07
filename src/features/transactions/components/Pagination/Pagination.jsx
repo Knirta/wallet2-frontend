@@ -3,6 +3,8 @@ import {
   selectCurrentPage,
   selectTotalPages,
 } from '@/features/transactions/state/selectors';
+import PaginationButton from '@/components/ui/PaginationButton';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 
 const Pagination = ({ onPageChange }) => {
   const page = useSelector(selectCurrentPage);
@@ -13,26 +15,26 @@ const Pagination = ({ onPageChange }) => {
   return (
     <div className="my-6 hidden flex-col items-center gap-3 md:flex">
       {page < totalPages && (
-        <button onClick={() => onPageChange(page + 1, true)}>
+        <PaginationButton onClick={() => onPageChange(page + 1, true)}>
           Показати ще
-        </button>
+        </PaginationButton>
       )}
       <div className="flex items-center justify-center gap-5">
-        <button
+        <PaginationButton
           onClick={() => onPageChange(Math.max(page - 1, 1))}
           disabled={page === 1}
         >
-          Назад
-        </button>
-        <span>
+          <FaArrowLeft />
+        </PaginationButton>
+        <span className="text-brand-violet font-bold">
           Сторінка {page} з {totalPages}
         </span>
-        <button
+        <PaginationButton
           onClick={() => onPageChange(Math.min(page + 1, totalPages))}
           disabled={page === totalPages}
         >
-          Вперед
-        </button>
+          <FaArrowRight />
+        </PaginationButton>
       </div>
     </div>
   );
