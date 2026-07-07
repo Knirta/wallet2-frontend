@@ -36,15 +36,25 @@ const TransactionsList = ({ page, onPageChange }) => {
   );
 
   return (
-    <div className="w-full md:overflow-x-auto">
-      <div className="w-full md:grid md:grid-cols-[1fr_0.4fr_1.5fr_2.5fr_1.5fr_1.5fr] md:items-center md:gap-x-4 xl:gap-x-6">
-        <div className="hidden rounded-full bg-white px-5 py-4 font-bold md:col-span-6 md:grid md:grid-cols-[1fr_0.4fr_1.5fr_2.5fr_1.5fr_1.5fr] md:items-center md:gap-x-10 md:border-none">
-          <div className="text-left">Дата</div>
-          <div className="text-center">Тип</div>
-          <div className="text-left">Категорія</div>
-          <div className="text-left">Коментар</div>
-          <div className="text-right">Сума</div>
-          <div className="text-right">Баланс</div>
+    <div className="w-full">
+      <div className="w-full md:grid md:grid-cols-[0.9fr_0.7fr_1.2fr_2fr_1.2fr_1.2fr] md:items-center md:gap-x-4 xl:gap-x-6">
+        <div className="rounded-l-full bg-white py-4 text-left font-bold max-md:hidden md:-mr-2 md:pl-5 xl:-mr-3">
+          Дата
+        </div>
+        <div className="bg-white py-4 text-center font-bold max-md:hidden md:-mx-2 xl:-mx-3">
+          Тип
+        </div>
+        <div className="bg-white py-4 text-left font-bold max-md:hidden md:-mx-2 md:pl-2 xl:-mx-3">
+          Категорія
+        </div>
+        <div className="bg-white py-4 text-left font-bold max-md:hidden md:-mx-2 md:pl-2 xl:-mx-3">
+          Коментар
+        </div>
+        <div className="bg-white py-4 text-right font-bold max-md:hidden md:-mx-2 md:pr-2 xl:-mx-3">
+          Сума
+        </div>
+        <div className="rounded-r-full bg-white py-4 text-right font-bold max-md:hidden md:-ml-2 md:pr-5 xl:-ml-3">
+          Баланс
         </div>
 
         {transactions.map((transaction, index) => (
