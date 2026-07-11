@@ -19,7 +19,7 @@ const Aside = () => {
   );
 
   return (
-    <aside className="mb-7.5 block md:mb-10 md:grid md:grid-cols-2 md:gap-5 xl:block">
+    <aside className="mb-7.5 block md:mb-10 md:grid md:grid-cols-2 md:gap-5 xl:block xl:py-10">
       <div className="xl:mb-7.5">
         <div className="mb-3 flex items-center justify-center gap-7.5 md:mb-5 md:flex-col md:items-start md:gap-3 xl:mb-7.5">
           <AsideLink to="/dashboard" icon={HomeIcon} title="Головна" />

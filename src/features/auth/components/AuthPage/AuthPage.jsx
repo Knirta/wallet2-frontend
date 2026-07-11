@@ -18,7 +18,7 @@ const AuthPage = ({
           src={imgDefault}
           alt="Finance App"
         />
-        <p className="relative z-30 text-3xl">Finance App</p>
+        <p className="font-display relative z-30 text-3xl">Finance App</p>
       </div>
       <div className="content-wrapper xl:bg-bgLight md:bg-bgDark flex items-center justify-center py-12.5">
         <div className="relative z-30 flex w-full flex-col items-center justify-center bg-white p-5 md:w-135 md:rounded-[20px] md:px-16 md:pt-10 md:pb-15">

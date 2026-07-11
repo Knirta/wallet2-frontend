@@ -14,9 +14,10 @@ const MainLayout = ({ children }) => {
   return (
     <div className="bg-bgLight relative container mx-auto flex min-h-screen flex-col overflow-x-hidden">
       <Header />
-      <div className="relative z-30 px-5 py-4 lg:px-10 lg:py-5 xl:grid xl:grid-cols-[minmax(400px,9fr)_16fr] xl:px-21 xl:py-10">
+      <div className="relative z-30 px-5 py-4 lg:px-10 lg:py-5 xl:grid xl:grid-cols-[minmax(350px,9fr)_3px_16fr] xl:gap-7.5 xl:px-21 xl:py-0">
         <Aside />
-        <main className="relative pb-7 xl:pl-7.5">
+        <div className="hidden border-r border-white bg-gray-200 xl:block"></div>
+        <main className="relative pb-7 xl:py-10">
           <Outlet>{children}</Outlet>
         </main>
       </div>
