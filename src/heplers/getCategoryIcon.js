@@ -9,10 +9,10 @@ import {
   LuZap,
   LuHeartPulse,
   LuGraduationCap,
-  LuHome,
   LuReceipt,
-  LuHelpCircle,
+  LuCircleHelp,
 } from 'react-icons/lu';
+import { MdOutlineHome } from 'react-icons/md';
 
 const iconMap = {
   salary: LuBanknote,
@@ -25,10 +25,10 @@ const iconMap = {
   utilities: LuZap,
   health: LuHeartPulse,
   education: LuGraduationCap,
-  'home-goods': LuHome,
+  'home-goods': MdOutlineHome,
   'other-expense': LuReceipt,
 };
 
 export const getCategoryIcon = categoryName => {
-  return iconMap[categoryName] || LuHelpCircle;
+  return iconMap[categoryName] || LuCircleHelp;
 };

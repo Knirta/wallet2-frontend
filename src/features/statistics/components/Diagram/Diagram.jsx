@@ -11,13 +11,11 @@ const CustomTooltip = ({ active, payload }) => {
   // Якщо мишка не наведена на сектор, нічого не рендеримо
   if (!active || !payload || !payload.length) return null;
 
-  // Дістаємо дані поточної категорії, на яку навели мишку
   const { name, totalAmount, color } = payload[0].payload;
 
   return (
     <div className="pointer-events-none flex flex-col gap-y-1 rounded-lg border border-gray-100 bg-white/95 p-3 text-sm shadow-xl backdrop-blur-sm">
       <div className="flex items-center gap-x-2 font-semibold text-gray-800">
-        {/* Маленька кольорова точка кольору категорії всередині підказки */}
         <div
           className="h-2.5 w-2.5 rounded-full"
           style={{ backgroundColor: color }}
@@ -40,7 +38,7 @@ const Diagram = ({ expenseStatistics, totalExpense }) => {
 
   if (expenseStatistics && expenseStatistics.length > 0) {
     return (
-      <div className="[&_*:focus]:outline-none">
+      <div className="max-md:mb-7.5 [&_*:focus]:outline-none">
         <ResponsiveContainer width="100%" aspect={1}>
           <PieChart style={{ outline: 'none' }}>
             <Tooltip
