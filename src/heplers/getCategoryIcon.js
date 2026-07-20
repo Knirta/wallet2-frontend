@@ -11,21 +11,21 @@ import {
   LuGraduationCap,
   LuReceipt,
   LuCircleHelp,
+  LuHouse,
 } from 'react-icons/lu';
-import { MdOutlineHome } from 'react-icons/md';
 
 const iconMap = {
   salary: LuBanknote,
   gift: LuGift,
   freelance: LuLaptop,
   'other-income': LuCirclePlus,
-  groseries: LuShoppingBasket,
+  groceries: LuShoppingBasket,
   transportation: LuCar,
   entertainment: LuGamepad2,
   utilities: LuZap,
   health: LuHeartPulse,
   education: LuGraduationCap,
-  'home-goods': MdOutlineHome,
+  'home-goods': LuHouse,
   'other-expense': LuReceipt,
 };
 

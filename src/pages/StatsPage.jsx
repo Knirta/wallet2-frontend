@@ -3,6 +3,7 @@ import { api } from '@/api/api.js';
 import DiagramContent from '@/features/statistics/components/DiagramContent';
 import MonthsListBox from '@/features/statistics/components/MonthsListBox';
 import YearsListBox from '@/features/statistics/components/YearsListBox';
+import ExpensesTable from '@/features/statistics/components/ExpensesTable';
 
 const StatsPage = () => {
   const [selectedMonth, setSelectedMonth] = useState(null);
@@ -59,9 +60,9 @@ const StatsPage = () => {
         </div>
 
         {!error && !isLoading && hasExpenses && (
-          <div className="list">Табличка</div>
+          <ExpensesTable expenses={statistics.expenseStatistics} />
         )}
-        <p className="flex items-center justify-between">
+        <p className="mb-4 flex items-center justify-between px-5">
           <span className="font-bold">Витрати:</span>
           <span className="text-brand-red font-bold">
             {statistics?.totalExpense
@@ -72,7 +73,7 @@ const StatsPage = () => {
               .replace(/,/g, ' ')}
           </span>
         </p>
-        <p className="flex items-center justify-between">
+        <p className="flex items-center justify-between px-5">
           <span className="font-bold">Доходи:</span>
           <span className="text-brand-green font-bold">
             {statistics?.totalIncome

@@ -37,7 +37,7 @@ const TransactionsList = ({ page, onPageChange }) => {
 
   return (
     <div className="w-full">
-      <div className="w-full md:grid md:grid-cols-[0.9fr_0.7fr_1.2fr_2fr_1.2fr_1.2fr] md:items-center md:gap-x-4 xl:gap-x-6">
+      <div className="w-full md:grid md:grid-cols-[0.8fr_0.6fr_1fr_1.6fr_1.1fr_1.2fr] md:items-center md:gap-x-4 xl:gap-x-6">
         <div className="rounded-l-full bg-white py-4 text-left font-bold max-md:hidden md:-mr-2 md:pl-5 xl:-mr-3">
           Дата
         </div>
