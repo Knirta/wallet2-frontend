@@ -17,7 +17,6 @@ const Aside = () => {
     isMobile &&
     (location.pathname === '/exchange' || location.pathname === '/stats')
   );
-
   return (
     <aside className="mb-7.5 block md:mb-10 md:grid md:grid-cols-2 md:gap-5 xl:block xl:py-10">
       <div className="xl:mb-7.5">

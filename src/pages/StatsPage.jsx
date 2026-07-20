@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '@/api/api.js';
-import Diagram from '@/features/statistics/components/Diagram';
-import Loader from '@/components/ui/Loader';
+import DiagramContent from '@/features/statistics/components/DiagramContent';
 import MonthsListBox from '@/features/statistics/components/MonthsListBox';
 import YearsListBox from '@/features/statistics/components/YearsListBox';
 
@@ -13,36 +12,42 @@ const StatsPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const currentMonth =
-      selectedMonth !== null ? selectedMonth : new Date().getMonth();
+    const currentMonth = selectedMonth ?? new Date().getMonth();
+    const currentYear = selectedYear ?? new Date().getFullYear();
 
     const fetchStatistics = async () => {
-      const { data: result } = await api.get(
-        `api/categories/statistics?month=${currentMonth}&year=${2026}`,
-      );
+      setIsLoading(true);
+      setError(null);
 
-      return result.data;
+      try {
+        const { data: result } = await api.get(
+          `api/categories/statistics?month=${currentMonth}&year=${currentYear}`,
+        );
+        setStatistics(result.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
-    fetchStatistics()
-      .then(data => setStatistics(data))
-      .catch(error => setError(error))
-      .finally(() => setIsLoading(false));
+    fetchStatistics();
   }, [selectedMonth, selectedYear]);
+
+  const hasExpenses = statistics && statistics.totalExpense > 0;
+
   return (
     <div className="sm:max-md:mx-auto sm:max-md:max-w-[70%] md:grid md:grid-cols-[1fr_1.3fr]">
       <p className="font-display mb-2.5 text-3xl md:col-span-2 md:mb-5">
         Статистика
       </p>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Diagram
-          expenseStatistics={statistics?.expenseStatistics}
-          totalExpense={statistics?.totalExpense}
-        />
-      )}
+      <DiagramContent
+        error={error}
+        isLoading={isLoading}
+        hasExpenses={hasExpenses}
+        statistics={statistics}
+      />
       <div className="diagram-info md:pl-10">
-        <div className="choose_period md:grid md:grid-cols-2 md:gap-5">
+        <div className="choose_period mb-5 md:grid md:grid-cols-2 md:gap-5">
           <MonthsListBox
             selectedMonth={selectedMonth}
             handleChange={setSelectedMonth}
@@ -52,7 +57,10 @@ const StatsPage = () => {
             handleChange={setSelectedYear}
           />
         </div>
-        <div className="list">Табличка</div>
+
+        {!error && !isLoading && hasExpenses && (
+          <div className="list">Табличка</div>
+        )}
         <p className="flex items-center justify-between">
           <span className="font-bold">Витрати:</span>
           <span className="text-brand-red font-bold">

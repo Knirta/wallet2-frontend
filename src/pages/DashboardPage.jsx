@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -20,10 +20,6 @@ const DashboardPage = () => {
   const transactions = useSelector(selectTransactions);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTransactions({ page: 1, limit: 9, isAppending: false }));
-  }, [dispatch]);
 
   const handlePageChange = (targetPage, isAppending = false) => {
     dispatch(getTransactions({ page: targetPage, limit: 9, isAppending }));

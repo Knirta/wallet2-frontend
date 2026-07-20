@@ -38,7 +38,10 @@ const YearsListBox = ({ selectedYear, handleChange }) => {
           aria-hidden="true"
         />
       </ListboxButton>
-      <ListboxOptions className="absolute z-100 mt-1 w-full rounded-xl bg-gray-100/40 shadow-2xl backdrop-blur-lg focus:outline-none">
+      <ListboxOptions
+        modal={false}
+        className="absolute z-100 mt-1 w-full rounded-xl bg-gray-100/40 shadow-2xl backdrop-blur-lg focus:outline-none"
+      >
         {years.map(year => (
           <ListboxOption
             key={year.id}

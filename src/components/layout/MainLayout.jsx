@@ -4,11 +4,13 @@ import { Outlet } from 'react-router-dom';
 import Header from '@/components/layout/Header.jsx';
 import { getAllCategories } from '@/features/categories/state/operations.js';
 import Aside from '@/components/layout/Aside.jsx';
+import { getTransactions } from '@/features/transactions/state/operations.js';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCategories());
+    dispatch(getTransactions({ page: 1, limit: 9, isAppending: false }));
   }, [dispatch]);
 
   return (

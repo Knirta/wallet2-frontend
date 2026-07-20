@@ -7,21 +7,22 @@ import {
 import { FaChevronDown } from 'react-icons/fa6';
 
 const months = [
-  { id: 0, name: 'січень' },
-  { id: 1, name: 'лютий' },
-  { id: 2, name: 'березень' },
-  { id: 3, name: 'квітень' },
-  { id: 4, name: 'травень' },
-  { id: 5, name: 'червень' },
-  { id: 6, name: 'липень' },
-  { id: 7, name: 'серпень' },
-  { id: 8, name: 'вересень' },
-  { id: 9, name: 'жовтень' },
-  { id: 10, name: 'листопад' },
-  { id: 11, name: 'грудень' },
+  { id: 0, name: 'Січень' },
+  { id: 1, name: 'Лютий' },
+  { id: 2, name: 'Березень' },
+  { id: 3, name: 'Квітень' },
+  { id: 4, name: 'Травень' },
+  { id: 5, name: 'Червень' },
+  { id: 6, name: 'Липень' },
+  { id: 7, name: 'Серпень' },
+  { id: 8, name: 'Вересень' },
+  { id: 9, name: 'Жовтень' },
+  { id: 10, name: 'Листопад' },
+  { id: 11, name: 'Грудень' },
 ];
 
 const MonthsListBox = ({ selectedMonth, handleChange }) => {
+  const currentMonth = months.find(month => month.id === selectedMonth);
   return (
     <Listbox
       as="div"
@@ -30,17 +31,16 @@ const MonthsListBox = ({ selectedMonth, handleChange }) => {
       className="relative max-md:mb-5"
     >
       <ListboxButton className="relative w-full cursor-pointer rounded-full border border-black text-center text-base/10 focus:outline-none">
-        {selectedMonth ? (
-          months.find(month => month.id === selectedMonth)?.name
-        ) : (
-          <span>Місяць</span>
-        )}
+        {currentMonth ? currentMonth.name : <span>Місяць</span>}
         <FaChevronDown
           className="pointer-events-none absolute top-1/2 right-2.5 h-3 w-3 -translate-y-1/2 text-black"
           aria-hidden="true"
         />
       </ListboxButton>
-      <ListboxOptions className="absolute z-100 mt-1 w-full overflow-y-scroll rounded-xl bg-gray-100/40 shadow-2xl backdrop-blur-lg focus:outline-none">
+      <ListboxOptions
+        modal={false}
+        className="absolute z-100 mt-1 max-h-150 w-full overflow-y-auto rounded-xl bg-gray-100/40 shadow-2xl backdrop-blur-lg focus:outline-none"
+      >
         {months.map(month => (
           <ListboxOption
             key={month.id}
