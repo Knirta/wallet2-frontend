@@ -17,7 +17,7 @@ const YearsListBox = ({ selectedYear, handleChange }) => {
   let years;
 
   startYear === endYear
-    ? (years = [{ id: 0, name: endYear }])
+    ? (years = [endYear])
     : (years = createYearsArray(startYear, endYear));
 
   return (
@@ -28,11 +28,7 @@ const YearsListBox = ({ selectedYear, handleChange }) => {
       className="relative"
     >
       <ListboxButton className="relative w-full cursor-pointer rounded-full border border-black text-center text-base/10 focus:outline-none">
-        {selectedYear ? (
-          years.find(year => year.name === selectedYear)?.name
-        ) : (
-          <span>Рік</span>
-        )}
+        {selectedYear}
         <FaChevronDown
           className="pointer-events-none absolute top-1/2 right-2.5 h-3 w-3 -translate-y-1/2 text-black"
           aria-hidden="true"
@@ -44,11 +40,11 @@ const YearsListBox = ({ selectedYear, handleChange }) => {
       >
         {years.map(year => (
           <ListboxOption
-            key={year.id}
-            value={year.name}
+            key={year}
+            value={year}
             className="cursor-pointer rounded-lg px-3 text-base/9 select-none data-focus:bg-white"
           >
-            {year.name}
+            {year}
           </ListboxOption>
         ))}
       </ListboxOptions>

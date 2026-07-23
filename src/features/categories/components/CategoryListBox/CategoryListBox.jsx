@@ -4,19 +4,26 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/react';
+import { useField, useFormikContext } from 'formik';
 import clsx from 'clsx';
 import { FaChevronDown } from 'react-icons/fa6';
 
-const CategoryListBox = ({
-  categories,
-  isExpense,
-  selectedCategory,
-  handleChange,
-  isError,
-}) => {
+const CategoryListBox = ({ categories, isError, ...props }) => {
+  const [field, _, helpers] = useField(props);
+  const { values } = useFormikContext();
+
+  const categoryId = field.value;
+  const selectedCategory = categoryId
+    ? categories.find(c => field.value === c._id)
+    : categoryId;
+  const handleChange = categoryId => {
+    helpers.setValue(categoryId);
+  };
+  const isExpense = values.type === 'expense';
+
   return (
     <Listbox
-      value={selectedCategory}
+      value={categoryId}
       onChange={handleChange}
       as="div"
       className="relative"
@@ -37,11 +44,11 @@ const CategoryListBox = ({
           aria-hidden="true"
         />
       </ListboxButton>
-      <ListboxOptions className="absolute z-100 mt-1 w-full rounded-xl bg-gray-100/40 shadow-2xl backdrop-blur-lg focus:outline-none">
+      <ListboxOptions className="absolute z-50 mt-1 w-full rounded-xl bg-gray-100/40 shadow-2xl backdrop-blur-lg focus:outline-none">
         {categories.map(category => (
           <ListboxOption
             key={category._id}
-            value={category}
+            value={category._id}
             className={clsx(
               'cursor-pointer rounded-lg px-3 text-base/11 select-none data-focus:bg-white',
               isExpense ? 'hover:text-brand-red' : 'hover:text-brand-green',

@@ -31,7 +31,7 @@ const MonthsListBox = ({ selectedMonth, handleChange }) => {
       className="relative max-md:mb-5"
     >
       <ListboxButton className="relative w-full cursor-pointer rounded-full border border-black text-center text-base/10 focus:outline-none">
-        {currentMonth ? currentMonth.name : <span>Місяць</span>}
+        {currentMonth.name}
         <FaChevronDown
           className="pointer-events-none absolute top-1/2 right-2.5 h-3 w-3 -translate-y-1/2 text-black"
           aria-hidden="true"

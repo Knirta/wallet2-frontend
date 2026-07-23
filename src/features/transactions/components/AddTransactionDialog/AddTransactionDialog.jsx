@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
@@ -23,14 +22,8 @@ import {
 } from '@/features/transactions/state/operations.js';
 
 const AddTransactionDialog = ({ isOpen, handleClose }) => {
-  const [isExpense, setIsExpense] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
-  const visibleCategories = categories.filter(category =>
-    isExpense ? category.type === 'expense' : category.type === 'income',
-  );
 
   const initialValues = {
     type: 'income',
@@ -59,29 +52,9 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
     validationSchema: AddTransactionSchema,
   });
 
-  function handleSwitchOnChange() {
-    const nextIsExpense = !isExpense;
-    setIsExpense(nextIsExpense);
-    setSelectedCategory(null);
-    formik.resetForm({
-      values: { ...initialValues, type: nextIsExpense ? 'expense' : 'income' },
-    });
-  }
-
-  function resetStates() {
-    setIsExpense(false);
-    setSelectedCategory(null);
-  }
-
   function handleDialogClose() {
     formik.resetForm();
-    resetStates();
     handleClose();
-  }
-
-  function handleCategoryChange(category) {
-    setSelectedCategory(category);
-    formik.setFieldValue('category', category._id);
   }
 
   async function handleSubmit(values) {
@@ -93,6 +66,12 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
       toast.error(error);
     }
   }
+
+  const visibleCategories = categories.filter(category =>
+    formik.values.type === 'expense'
+      ? category.type === 'expense'
+      : category.type === 'income',
+  );
 
   return (
     <Dialog
@@ -130,10 +109,7 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
                 className="flex w-full flex-col gap-8"
                 onSubmit={formik.handleSubmit}
               >
-                <CategorySwitch
-                  isExpense={isExpense}
-                  handleSwitchOnChange={handleSwitchOnChange}
-                />
+                <CategorySwitch name="type" />
                 <div>
                   {formik.touched.category && formik.errors.category ? (
                     <div className="text-brand-red relative top-2 h-4 animate-pulse text-center text-xs">
@@ -143,16 +119,14 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
                     <div className="relative top-2 h-4"></div>
                   )}
                   <CategoryListBox
+                    name="category"
                     categories={visibleCategories}
-                    isExpense={isExpense}
-                    selectedCategory={selectedCategory}
-                    handleChange={handleCategoryChange}
                     isError={formik.touched.category && formik.errors.category}
                   />
                 </div>
                 <div className="grid-row-1 relative grid gap-8 md:grid-cols-2 md:gap-4">
                   <FormInput
-                    data-autofocus
+                    // data-autofocus
                     type="number"
                     step="0.01"
                     name="amount"
@@ -179,7 +153,12 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
                   placeholder="Опис (необов'язково)"
                   aria-label="Опис транзакції"
                 />
-                <Button variant="primary" type="submit" className="mt-4">
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="disabled:bg-brand-gray mt-4 disabled:cursor-not-allowed"
+                  disabled={formik.isSubmitting}
+                >
                   Додати
                 </Button>
                 <Button

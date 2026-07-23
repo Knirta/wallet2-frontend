@@ -6,23 +6,20 @@ import YearsListBox from '@/features/statistics/components/YearsListBox';
 import ExpensesTable from '@/features/statistics/components/ExpensesTable';
 
 const StatsPage = () => {
-  const [selectedMonth, setSelectedMonth] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [statistics, setStatistics] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const currentMonth = selectedMonth ?? new Date().getMonth();
-    const currentYear = selectedYear ?? new Date().getFullYear();
-
     const fetchStatistics = async () => {
       setIsLoading(true);
       setError(null);
 
       try {
         const { data: result } = await api.get(
-          `api/categories/statistics?month=${currentMonth}&year=${currentYear}`,
+          `api/categories/statistics?month=${selectedMonth}&year=${selectedYear}`,
         );
         setStatistics(result.data);
       } catch (error) {

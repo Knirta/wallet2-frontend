@@ -1,8 +1,19 @@
 import { Switch } from '@headlessui/react';
+import { useField, useFormikContext } from 'formik';
 import clsx from 'clsx';
 import { FaPlus, FaMinus } from 'react-icons/fa6';
 
-const CategorySwitch = ({ isExpense, handleSwitchOnChange }) => {
+const CategorySwitch = props => {
+  const [field, _, helpers] = useField(props);
+  const { setFieldValue, setFieldTouched } = useFormikContext();
+
+  let isExpense = field.value === 'expense';
+  const handleChange = nextIsExpense => {
+    helpers.setValue(nextIsExpense ? 'expense' : 'income');
+    setFieldValue('category', '');
+    setFieldTouched('category', false);
+  };
+
   return (
     <div className="switch flex items-center gap-3 self-center">
       <span
@@ -15,7 +26,7 @@ const CategorySwitch = ({ isExpense, handleSwitchOnChange }) => {
       </span>
       <Switch
         checked={isExpense}
-        onChange={handleSwitchOnChange}
+        onChange={handleChange}
         className="group border-brand-gray relative flex h-10 w-20 cursor-pointer rounded-full border focus:not-data-focus:outline-none data-focus:outline-none"
       >
         <div
