@@ -1,7 +1,20 @@
+import { useMemo } from 'react';
 import Diagram from '@/features/statistics/components/Diagram';
 import Loader from '@/components/ui/Loader';
 
-const DiagramContent = ({ error, isLoading, hasExpenses, statistics }) => {
+const DiagramContent = ({
+  error,
+  isLoading,
+  hasExpenses,
+  statistics,
+  colorsMap,
+}) => {
+  const sortedExpenseForDiagram = useMemo(() => {
+    const expenses = statistics?.expenseStatistics;
+    if (!expenses) return [];
+    return [...expenses].sort((a, b) => a.name.localeCompare(b.name));
+  }, [statistics]);
+
   if (error)
     return (
       <div className="text-brand-red my-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center md:col-span-2">
@@ -31,8 +44,9 @@ const DiagramContent = ({ error, isLoading, hasExpenses, statistics }) => {
     );
   return (
     <Diagram
-      expenseStatistics={statistics?.expenseStatistics}
+      expenseStatistics={sortedExpenseForDiagram}
       totalExpense={statistics?.totalExpense}
+      colorsMap={colorsMap}
     />
   );
 };

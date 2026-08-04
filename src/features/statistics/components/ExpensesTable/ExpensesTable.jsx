@@ -1,7 +1,7 @@
 import React from 'react';
 import { getCategoryIcon } from '@/heplers';
 
-const ExpensesTable = ({ expenses }) => {
+const ExpensesTable = ({ expenses, colorsMap }) => {
   return (
     <div className="mb-8 grid grid-cols-[2fr_1fr]">
       <div className="rounded-l-full bg-white px-5 py-4 text-left font-bold">
@@ -10,9 +10,8 @@ const ExpensesTable = ({ expenses }) => {
       <div className="rounded-r-full bg-white py-4 pr-5 text-right font-bold">
         Сума
       </div>
-      {expenses.map((expense, index, array) => {
-        const hue = (360 * index) / array.length;
-        const rainbowColor = `hsl(${hue}, 65%, 50%)`;
+      {expenses.map(expense => {
+        const rainbowColor = colorsMap[expense.name] || '#8395A7';
         const Icon = getCategoryIcon(expense.icon);
         return (
           <React.Fragment key={expense.id}>

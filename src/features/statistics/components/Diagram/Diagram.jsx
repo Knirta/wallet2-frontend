@@ -29,12 +29,11 @@ const CustomTooltip = ({ active, payload }) => {
   );
 };
 
-const Diagram = ({ expenseStatistics, totalExpense }) => {
+const Diagram = ({ expenseStatistics, totalExpense, colorsMap }) => {
   if (!expenseStatistics || expenseStatistics.length === 0) return null;
 
-  const enhancedData = expenseStatistics.map((item, index, array) => {
-    const hue = (index * 360) / array.length;
-    return { ...item, rainbowColor: `hsl(${hue}, 70%, 50%)` };
+  const enhancedData = expenseStatistics.map(item => {
+    return { ...item, rainbowColor: colorsMap[item.name] || '#8395A7' };
   });
 
   const renderRainbowSector = props => {
