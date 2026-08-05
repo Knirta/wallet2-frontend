@@ -10,6 +10,7 @@ import VerifyEmailPage from '@/pages/VerifyEmailPage.jsx';
 import DashboardPage from '@/pages/DashboardPage.jsx';
 import StatsPage from '@/pages/StatsPage.jsx';
 import ExchangePage from '@/pages/ExchangePage';
+import NotFound from '@/pages/NotFound.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -59,4 +60,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  { path: '*', element: <NotFound /> },
 ]);

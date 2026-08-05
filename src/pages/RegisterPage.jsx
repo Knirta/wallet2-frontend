@@ -1,5 +1,5 @@
 import AuthPage from '@/features/auth/components/AuthPage';
-import AuthLink from '@/features/auth/components/AuthLink';
+import Link from '@/components/ui/Link';
 import RegisterForm from '@/features/auth/components/RegisterForm';
 import regImgSmall from '@/assets/images/register-274.webp';
 import regImgMedium from '@/assets/images/register-548.webp';
@@ -14,7 +14,7 @@ const RegisterPage = () => {
       imgMedium={regImgMedium}
       imgLarge={regImgLarge}
       imgDefault={registerImgDefault}
-      authCtrl={<AuthLink to="/login">Вхід</AuthLink>}
+      authCtrl={<Link to="/login">Вхід</Link>}
     />
   );
 };

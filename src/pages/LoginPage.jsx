@@ -1,5 +1,5 @@
 import AuthPage from '@/features/auth/components/AuthPage';
-import AuthLink from '@/features/auth/components/AuthLink';
+import Link from '@/components/ui/Link';
 import LoginForm from '@/features/auth/components/LoginForm';
 import loginImgSmall from '@/assets/images/login-261.webp';
 import loginImgMedium from '@/assets/images/login-521.webp';
@@ -14,7 +14,7 @@ const LoginPage = () => {
       imgMedium={loginImgMedium}
       imgLarge={loginImgLarge}
       imgDefault={loginImgDefault}
-      authCtrl={<AuthLink to="/register">Реєстрація</AuthLink>}
+      authCtrl={<Link to="/register">Реєстрація</Link>}
     />
   );
 };
