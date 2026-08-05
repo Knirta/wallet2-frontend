@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const AuthLink = ({ children, to }) => {
+const CustomLink = ({ children, to }) => {
   return (
     <Link
       to={to}
@@ -11,4 +11,4 @@ const AuthLink = ({ children, to }) => {
   );
 };
 
-export default AuthLink;
+export default CustomLink;
