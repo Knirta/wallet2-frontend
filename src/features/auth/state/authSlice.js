@@ -55,6 +55,8 @@ const slice = createSlice({
         state.isAuthLoading = false;
       })
       .addCase(logout.rejected, state => {
+        state.user = null;
+        state.token = null;
         state.isAuthLoading = false;
       })
       .addCase(current.pending, state => {
