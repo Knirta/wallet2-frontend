@@ -39,6 +39,13 @@ const AddTransactionDialog = ({ isOpen, handleClose }) => {
     amount: Yup.number()
       .typeError('Сума повинна бути числом')
       .min(0.01, 'Сума повинна бути більше нуля')
+      .test(
+        'max-two-decimals',
+        'Сума може мати не більше 2 знаків після коми',
+        value =>
+          value == null ||
+          Math.abs(value * 100 - Math.round(value * 100)) < 1e-8,
+      )
       .required("Обов'язкове поле"),
     date: Yup.date()
       .max(new Date(), 'Дата не може бути в майбутньому')
