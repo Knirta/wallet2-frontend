@@ -50,6 +50,7 @@ api.interceptors.response.use(
           failedQueue.push({ resolve, reject });
         })
           .then(token => {
+            originalRequest._retry = true;
             originalRequest.headers.Authorization = `Bearer ${token}`;
             return api(originalRequest);
           })
@@ -60,15 +61,14 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data: result } = await store.dispatch(refresh()).unwrap();
-
+        const data = await store.dispatch(refresh()).unwrap();
+        processQueue(null, data.token);
         if (originalRequest.url.includes('/current')) {
-          return Promise.resolve({ data: result.data });
+          return Promise.resolve(data);
+        } else {
+          originalRequest.headers.Authorization = `Bearer ${data.token}`;
+          return api(originalRequest);
         }
-
-        processQueue(null, result.data.token);
-        originalRequest.headers.Authorization = `Bearer ${result.data.token}`;
-        return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
         return Promise.reject(refreshError);
